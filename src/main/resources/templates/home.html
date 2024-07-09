@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Taco Cloud</title>
+    <style>
+        body {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+<h1>Welcome to...</h1>
+<img th:src="@{/images/Camel.svg}" height="300"/>
+<div sec:authorize="hasRole('USER')">
+    <p>Welcome back, <span th:text="${#authentication.name}">User</span>!</p>
+    <form method="POST" th:action="@{/logout}" id="logoutForm">
+        <input type="submit" value="Logout"/>
+    </form>
+
+
+</div>
+<div sec:authorize="!hasRole('USER')">
+    <p>Welcome, new user!</p>
+    <form method="GET" th:action="@{/login}" id="loginForm">
+        <input type="submit" value="Login"/>
+    </form>
+</div>
+</body>
+</html>
